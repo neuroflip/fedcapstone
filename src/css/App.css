@@ -1,0 +1,56 @@
+.markazi-main {
+  font-family: "Markazi Text", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.karla-main {
+  font-family: "Karla", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.App {
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: 'Markazi Text';
+}
+
+h1 {
+  font-size: 3rem; /* 48px */
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+p {
+  font-family: 'Karla';
+}
+
+.shadow {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+button {
+  margin: 25px;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 25px;
+}
+
+footer, header, nav {
+  padding: 0 25px;
+}
+
+@media (min-width: 640px) {
+  footer, header, nav {
+    padding: 0 50px;
+  }
+}
