@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Logo from './Logo'
+import Logo from './ui/Logo'
 
 function Footer() {
   return <footer className='flex flex-1 w-full bg-tertiary pt-6 ml-auto mr-auto'>
