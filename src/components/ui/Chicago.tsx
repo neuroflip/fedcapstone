@@ -1,7 +1,7 @@
-import image1 from './img/Mario and Adrian A.jpg'
-import image2 from './img/Mario and Adrian b.jpg'
+import image1 from '../img/Mario and Adrian A.jpg'
+import image2 from '../img/Mario and Adrian b.jpg'
 
-import './css/Chicago.css'
+import '../css/Chicago.css'
 
 function Chicago() {
   return (<div className="bg-primary flex sm:flex-row flex-col sm:max-h-96 max-h-128 pl-12 pr-12">

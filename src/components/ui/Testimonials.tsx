@@ -1,5 +1,5 @@
-import Testimonial from "./ui/Testimonial"
-import type { TestimonialData } from './ui/Testimonial'
+import Testimonial from "./Testimonial"
+import type { TestimonialData } from './Testimonial'
 
 const data: Array<TestimonialData> = [{
   rating: 4.9,

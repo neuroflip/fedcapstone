@@ -1,6 +1,6 @@
-import Navigation from "../components/Navigation"
-import Main from "../components/Main"
-import Footer from "../components/Footer"
+import Navigation from "../components/ui/Navigation"
+import Main from "../components/ui/Main"
+import Footer from "../components/ui/Footer"
 import { useSearchParams } from "react-router-dom"
 
 import image from '../components/img/restaurant.jpg'

@@ -1,7 +1,7 @@
-import Card from './ui/Card'
-import card1Image from './img/greek salad.jpg'
-import card2Image from './img/other salad.jpg'
-import card3Image from './img/lemon dessert.jpg'
+import Card from './Card'
+import card1Image from '../img/greek salad.jpg'
+import card2Image from '../img/other salad.jpg'
+import card3Image from '../img/lemon dessert.jpg'
 
 const dishes = [{
     image: card1Image,
