@@ -1,0 +1,10 @@
+#res-date:focus:invalid,
+#res-time:focus:invalid,
+#guests:focus:invalid {
+    color: Red;
+}
+
+.bookingForm button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

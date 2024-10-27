@@ -1,12 +1,12 @@
 import * as React from 'react'
-import Logo from './Logo'
+import Logo from './ui/Logo'
 
 function Footer() {
-  return <footer className='flex flex-1 w-full bg-tertiary pt-6 ml-auto mr-auto'>
+  return <footer className='flex flex-1 flex-col sm:flex-row w-full bg-tertiary pt-6 ml-auto mr-auto text-xs'>
     <div className='m-4'><Logo /></div>
     <ul className='m-auto'>
       <li className='m-7 inline-block font-bold align-top'>
-        <div className='font-bold'>Navigation</div>
+        <div className='underline'>Navigation</div>
         <a href="/home" className='block' target="_blank">Home</a>
         <a href="/about" className='block' target="_blank">About</a>
         <a href="/menu" className='block' target="_blank">Menu</a>
@@ -15,13 +15,13 @@ function Footer() {
         <a href="/login" className='block' target="_blank">Login</a>
       </li>
       <li className='m-7 inline-block font-bold align-top'>
-        <div className='font-bold'>Contact</div>
+        <div className='underline'>Contact</div>
         <div>202 Gwenn Viaduct, <br />West Dominiquehaven, <br />SC 25564</div>
         <div>tel. 555-25564</div>
         <a href="mailto://help@littlelemon.com">help@littlelemon.com</a>
       </li>
       <li className='m-7 inline-block font-bold align-top'>
-        <div className='font-bold'>Social Media</div>
+        <div className='underline'>Social Media</div>
         <div>Facebook</div>
         <div>Instagram</div>
       </li>
