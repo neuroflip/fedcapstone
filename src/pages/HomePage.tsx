@@ -1,11 +1,11 @@
 import * as React from 'react'
-import Navigation from '../components/Navigation';
-import Header from '../components/Header';
-import Main from '../components/Main';
-import Footer from '../components/Footer';
-import Specials from '../components/Specials';
-import Testimonials from '../components/Testimonials';
-import Chicago from '../components/Chicago';
+import Navigation from '../components/ui/Navigation';
+import Header from '../components/ui/Header';
+import Main from '../components/ui/Main';
+import Footer from '../components/ui/Footer';
+import Specials from '../components/ui/Specials';
+import Testimonials from '../components/ui/Testimonials';
+import Chicago from '../components/ui/Chicago';
 
 function Home(): React.JSX.Element {
   return (<>

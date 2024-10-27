@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import image from './img/restauranfood.jpg'
+import image from '../img/restauranfood.jpg'
 
 function Header() {
   const navigate = useNavigate()

@@ -1,4 +1,4 @@
-import Logo from './ui/Logo'
+import Logo from './Logo'
 
 function Navigation(): React.JSX.Element {
   return <nav className="flex flex-col sm:flex-row">
