@@ -1,4 +1,4 @@
-import { getDateToISOString } from "./BookingForm"
+import { getDateToISOString } from "../../Utils"
 
 function compareDates(d1: Date, d2: Date) {
     const date1 = new Date(getDateToISOString(d1))

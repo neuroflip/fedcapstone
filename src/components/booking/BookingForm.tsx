@@ -1,6 +1,8 @@
 import { ChangeEventHandler, FormEvent } from 'react';
 import { validateDate, validateTime, validateGuests, validateOcassion } from './FormValidation';
-import { Ocassion, FormState } from './Booking';
+import { Ocassion, FormState } from './hooks/useBooking';
+import { getDateToISOString } from '../../Utils';
+
 import './css/BookingForm.css'
 
 interface BookingFormProps {
@@ -15,6 +17,7 @@ interface BookingFormProps {
 
 function BookingForm({ formState, availableItems, onDateChange, onTimeChange,
     onOcassionChange, onGuestsChange, onSubmit }: BookingFormProps): React.JSX.Element {
+
     function isFormValid() {
         return validateDate(formState.date) &&
             validateTime(formState.time) &&
@@ -60,16 +63,6 @@ function BookingForm({ formState, availableItems, onDateChange, onTimeChange,
                 Make Your reservation
             </button>
         </form>
-}
-
-export const getDateToISOString = (date: Date): string => {
-    let result = ''
-    try {
-        result = date.toISOString().split('T')[0]
-    } catch(e) {
-
-    }
-    return result
 }
 
 export default BookingForm

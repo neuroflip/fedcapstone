@@ -1,5 +1,5 @@
-import { FormState } from "../components/booking/Booking"
-import { getDateToISOString } from "../components/booking/BookingForm"
+import { FormState } from "../components/booking/hooks/useBooking"
+import { getDateToISOString } from "../Utils"
 
 const LITTLE_LEMON_KEY = 'LL_'
 

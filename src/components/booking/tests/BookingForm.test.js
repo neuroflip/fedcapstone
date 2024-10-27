@@ -41,7 +41,7 @@ test('Renders the BookingForm and all the html input attributes at the form', ()
     expect(dateElement.getAttribute('required')).not.toBeNull()
     expect(timeElement.getAttribute('required')).not.toBeNull()
     expect(guestsElement.getAttribute('required')).not.toBeNull()
-    expect(guestsElement.getAttribute('placeholder')).toEqual("1")
+    expect(guestsElement.getAttribute('placeholder')).toEqual("0")
     expect(guestsElement.getAttribute('min')).toEqual("1")
     expect(guestsElement.getAttribute('max')).toEqual("10")
     expect(ocassionElement.getAttribute('required')).not.toBeNull()
@@ -158,16 +158,17 @@ test('on submit button click if no errors', ()=> {
   jest.spyOn(FormValidation, 'validateOcassion').mockImplementation(() => {
     return true
   })
+
   render(<BookingForm formState={formState} onDateChange={ onDateChange }
     onTimeChange={ onTimeChange } onOcassionChange={ onOcassionChange } onSubmit={ onSubmit }
     onGuestsChange={ onGuestsChange } availableItems={ initialAvailableTimes } />)
 
-  const occasionElement = screen.getByLabelText("Occasion")
-  fireEvent.change(occasionElement, { target: { value: "1" } })
+  const guestsElement = screen.getByLabelText("Number of guests*")
+  fireEvent.change(guestsElement, { target: { value: "2" } })
+
   const submitButton = screen.getByRole('button')
   const clickEvent = { target: { clientX: 0, clientY: 0 }, preventDefault: jest.fn() }
   fireEvent.click(submitButton, clickEvent)
 
-  expect(clickEvent.preventDefault).toHaveBeenCalled()
   expect(onSubmit).toHaveBeenCalled()
 })

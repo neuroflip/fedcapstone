@@ -1,3 +1,4 @@
+import { Ocassion } from "../../components/booking/hooks/useBooking";
 import DataProvider from "../DataProvider";
 
 const timeData = ["17:30","18:30","20:00","20:30","21:00","22:00","23:30"]
@@ -11,6 +12,7 @@ beforeEach(() => {
 afterEach(() => {
     delete window.fetchAPI
     delete window.submitAPI
+    jest.clearAllMocks();
 })
 
 test('getData when fetchAPI returns correctly', () => {
@@ -51,4 +53,23 @@ test('setData', () => {
     dataProvider.setData(date, timeData)
 
     expect(mockSetItem).toHaveBeenCalledWith(`LL_${date.toISOString().split('T')[0]}`, JSON.stringify(timeData))
+})
+
+test('setAndSubmitData', () => {
+    const mockSubmitAPI = jest.spyOn(window, 'submitAPI')
+    const dataProvider = new DataProvider()
+    const date = new Date()
+    const formState = {
+        date: new Date(),
+        time: "16:00",
+        guests: 2,
+        ocassion: 0
+    }
+    const timeData = ["15:00", "15:30", "16:30"]
+
+    jest.spyOn(dataProvider, 'setData')
+    dataProvider.setAndSubmitData(formState, timeData)
+
+    expect(dataProvider.setData).toHaveBeenCalledWith(formState.date, timeData)
+    expect(mockSubmitAPI).toHaveBeenCalledWith(formState)
 })

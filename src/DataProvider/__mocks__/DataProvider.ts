@@ -1,4 +1,4 @@
-import { FormState } from "../../components/booking/Booking"
+import { FormState } from "../../components/booking/hooks/useBooking"
 
 const mockGetData = jest.fn(() => ["16:00", "16:30","17:00","17:30"])
 
