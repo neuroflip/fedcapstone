@@ -1,11 +1,11 @@
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import App from './App';
-import Home from './pages/HomePage';
-import BookingPage from './components/booking/BookingForm';
+import App from '../App';
+import Home from '../pages/HomePage';
+import BookingPage from '../pages/BookingPage';
 
-jest.mock('./pages/HomePage')
-jest.mock('./components/booking/BookingForm')
+jest.mock('../pages/HomePage')
+jest.mock('../pages/BookingPage')
 
 beforeEach(() => {
   (Home as jest.Mock).mockImplementation(() => <h1>Hello From Home Page</h1>);

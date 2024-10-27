@@ -1,4 +1,5 @@
 import { ChangeEventHandler, FormEvent } from 'react';
+import { validateDate, validateTime, validateGuests, validateOcassion } from './FormValidation';
 import { Ocassion, FormState } from './Booking';
 import './css/BookingForm.css'
 
@@ -8,12 +9,17 @@ interface BookingFormProps {
     onDateChange: ChangeEventHandler<HTMLInputElement>,
     onTimeChange: ChangeEventHandler<HTMLSelectElement>,
     onOcassionChange: ChangeEventHandler<HTMLSelectElement>,
-    onGuestsChange: ChangeEventHandler<HTMLInputElement>
+    onGuestsChange: ChangeEventHandler<HTMLInputElement>,
+    onSubmit: Function
 }
 
-function BookingForm({ formState, availableItems, onDateChange, onTimeChange, onOcassionChange, onGuestsChange }: BookingFormProps): React.JSX.Element {
+function BookingForm({ formState, availableItems, onDateChange, onTimeChange,
+    onOcassionChange, onGuestsChange, onSubmit }: BookingFormProps): React.JSX.Element {
     function isFormValid() {
-        return formState.date !== null && formState.guests > 0;
+        return validateDate(formState.date) &&
+            validateTime(formState.time) &&
+            validateGuests(formState.guests) &&
+            validateOcassion(formState.ocassion);
     }
 
     function getTimeOptions() {
@@ -22,33 +28,48 @@ function BookingForm({ formState, availableItems, onDateChange, onTimeChange, on
         })
     }
 
-    function onSubmit(e: FormEvent<HTMLFormElement>) {
+    function submitForm(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        console.log("SUBMIT!!!")
-        console.log(e)
+        onSubmit(formState)
     }
 
-    return <form className="bookingForm grid max-w-52 gap-5 w-full mt-20 mb-20 ml-auto mr-auto " onSubmit={ onSubmit }>
+    return <form className="bookingForm grid max-w-52 gap-5 w-full mt-10 mb-20 ml-auto mr-auto " onSubmit={ submitForm }>
+
             <label htmlFor="res-date" className="font-bold">Choose date<sup className="text-red-700">*</sup></label>
-            <input type="date" id="res-date" required onChange={ onDateChange } />
+            { !validateDate(formState.date) ? <div className='text-red-700 text-xs'>The date has to be greater than now and cannot be greater than 2 years</div> : <></> }
+            <input value={getDateToISOString(formState.date)} type="date" id="res-date" required onChange={ onDateChange } />
+
             <label htmlFor="res-time" className="font-bold">Choose time</label>
             <select id="res-time" required onChange={ onTimeChange }>
                 { getTimeOptions() }
             </select>
 
             <label htmlFor="guests" className="font-bold">Number of guests<sup className="text-red-700">*</sup></label>
-            <input type="number" required placeholder="1" min="1" max="10" id="guests" onChange={onGuestsChange} />
+            { !validateGuests(formState.guests) ? <div className='text-red-700 text-xs'>Please, select one or more guests</div> : <></> }
+            <input type="number" required placeholder="0" min="1" max="10" id="guests" onChange={onGuestsChange} />
+
             <label htmlFor="occasion" className="font-bold">Occasion</label>
             <select id="occasion" required onChange={onOcassionChange}>
                 <option value={ Ocassion.NotSet }>not an special occasion</option>
                 <option value={ Ocassion.Birthday }>Birthday</option>
                 <option value={ Ocassion.Anniversary }>Anniversary</option>
             </select>
-            <button type="submit" disabled={!isFormValid()} className='bg-secondary shadow rounded-lg font-bold p-4 text-black'>
+
+            <button aria-label="click to make a reservation" type="submit" disabled={!isFormValid()} className='bg-secondary shadow rounded-lg font-bold p-4 text-black'>
                 Make Your reservation
             </button>
         </form>
+}
+
+export const getDateToISOString = (date: Date): string => {
+    let result = ''
+    try {
+        result = date.toISOString().split('T')[0]
+    } catch(e) {
+
+    }
+    return result
 }
 
 export default BookingForm

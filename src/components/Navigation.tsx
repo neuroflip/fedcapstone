@@ -1,7 +1,7 @@
 import Logo from './ui/Logo'
 
 function Navigation(): React.JSX.Element {
-  return <nav className="flex flex-auto">
+  return <nav className="flex flex-col sm:flex-row">
     <a href="/" className='m-4'>
       <Logo />
     </a>

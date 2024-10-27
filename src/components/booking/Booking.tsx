@@ -1,5 +1,8 @@
 import { ChangeEvent, useState, useReducer } from "react"
-import BookingForm from "./BookingForm"
+import { useNavigate } from "react-router-dom"
+import BookingForm, { getDateToISOString } from "./BookingForm"
+import AvailableBooking from "./AvailableBooking"
+import DataProvider from "../../DataProvider/DataProvider"
 
 export enum Ocassion {
     NotSet,
@@ -8,45 +11,50 @@ export enum Ocassion {
 }
 
 export interface FormState {
-    date: Date | null,
+    date: Date,
     time: string,
     guests: number,
     ocassion: Ocassion
 }
 
-declare const window: {
-    fetchAPI: any;
-} & Window;
-
-const initialAvailableTimes = ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]
-const initializeTimes = () => {
-    return window.fetchAPI()
-}
-
 const initialFormState = {
-    date: null,
-    time: initialAvailableTimes[0],
-    guests: 1,
+    date: new Date(),
+    time: "17:00",
+    guests: 0,
     ocassion: Ocassion.NotSet
 }
 
 function Booking() {
+    const dataProvider = new DataProvider()
+    const navigate = useNavigate()
     const [formState, setFormState] = useState<FormState>(initialFormState)
-    const updateTimes = (state: Array<string>, action: any): Array<string> => {
-        //This function will change the availableTimes based on the selected date
-        /*if (action.type === "data") {
-            const value = action.value
-        }*/
 
+    const initializeTimes = () => dataProvider.getData(new Date())
+    const updateTimes = (state: Array<string>, action: any): Array<string> => {
+        if (action.type === "data.change.date") {
+            return dataProvider.getData(new Date(action.value))
+        }
         return state
     }
+
+    function submitForm(data: FormState) {
+        const newStorageData = availableTimes.filter((item) => item !== data.time)
+
+        if (dataProvider.setAndSubmitData(data, newStorageData)) {
+            navigate(`/confirmation?date=${data.date.toDateString()}&time=${data.time}&guests=${data.guests}`)
+        }
+    }
+
     const [availableTimes, dispatch] = useReducer(updateTimes, initializeTimes())
 
     function onDateChange(e: ChangeEvent<HTMLInputElement>) {
         const value = (e.target as HTMLInputElement).value
+        const valueDate = new Date(value)
 
-        setFormState({ ...formState, date: new Date(value) })
-        dispatch({ type: 'data', value: value })
+        if (valueDate.getFullYear() <= 9999) {
+            setFormState({ ...formState, date: valueDate })
+            dispatch({ type: 'data.change.date', value: value })
+        }
     }
 
     function onTimeChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -67,13 +75,17 @@ function Booking() {
         setFormState({ ...formState, ocassion: Number(value) })
     }
 
-    return <BookingForm
-        formState={ formState }
-        availableItems={ availableTimes }
-        onDateChange={ onDateChange }
-        onTimeChange={ onTimeChange }
-        onGuestsChange={ onGuestsChange }
-        onOcassionChange={ onOcassionChange } />
+    return (<>
+        <AvailableBooking date={ getDateToISOString(formState.date) } availableItems={ availableTimes } />
+        <BookingForm
+            formState={ formState }
+            availableItems={ availableTimes }
+            onDateChange={ onDateChange }
+            onTimeChange={ onTimeChange }
+            onGuestsChange={ onGuestsChange }
+            onOcassionChange={ onOcassionChange }
+            onSubmit={ submitForm } />
+    </>)
 }
 
 export default Booking

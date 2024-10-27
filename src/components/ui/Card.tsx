@@ -8,7 +8,7 @@ interface CardProps {
 }
 
 function Card({ image, title, price, description }: CardProps): React.JSX.Element {
-  return <div className="basis-1/3 sm:m-6 bg-gray-200 rounded-md mb-4 m-auto w-full shadow ">
+  return <div className="card basis-1/3 sm:m-6 bg-gray-200 rounded-md mb-4 m-auto w-full shadow ">
     <img className='m-auto rounded-t-md' src={image} alt="example dish" />
     
     <div className="flex flex-row m-5">
